@@ -1,54 +1,42 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
     background-color: #f0f0f0;
-}
-
-h1, h2 {
-    font-size: 24px;
+    color: #333;
 }
 
 .page {
     display: none;
 }
 
-#home-page {
+.page.active {
     display: block;
 }
 
+h1, h2 {
+    text-align: center;
+}
+
 button {
-    padding: 10px 20px;
-    margin: 10px;
+    display: block;
+    width: 200px;
+    padding: 10px;
+    margin: 10px auto;
     font-size: 16px;
     cursor: pointer;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #ddd;
 }
 
-.hidden {
-    display: none;
+#task-buttons button {
+    width: 200px;
+    margin: 10px auto;
 }
 
-#task-buttons {
-    margin-top: 20px;
-}
-
-#leaderboard {
-    margin-top: 20px;
-}
-
-#answer-input {
+input {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
     padding: 10px;
-    font-size: 16px;
-    margin: 10px;
-    width: 70%;
-    border-radius: 5px;
 }
