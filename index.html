@@ -9,7 +9,7 @@
 <body>
 
     <!-- Home Page -->
-    <div id="home-page" class="page">
+    <div id="home-page" class="page active">
         <h1>Capture the Flag Game</h1>
         <button id="start-button">Start</button>
     </div>
@@ -27,6 +27,16 @@
         <input type="text" id="answer-input" placeholder="Enter your answer">
         <button id="submit-answer-button">Submit Answer</button>
         <button id="task-back-button">Back to Tasks</button>
+    </div>
+
+    <!-- Congratulations Page -->
+    <div id="congratulations-page" class="page hidden">
+        <h2>Congratulations!</h2>
+        <p>You completed all the tasks.</p>
+        <label for="nickname-input">Enter your nickname:</label>
+        <input type="text" id="nickname-input" placeholder="Your Nickname">
+        <button id="submit-nickname">Submit</button>
+        <button id="leaderboard-button">Leaderboard</button>
     </div>
 
     <!-- Leaderboard Page -->
