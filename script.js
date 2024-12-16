@@ -1,8 +1,6 @@
 // Global variables
-let nickname = "";
-let currentTask = 0;
-let completedTasks = [];
-let leaderboardData = [];
+let currentTask = 0; // Keeps track of the last completed task
+let completedTasks = []; // List of completed task numbers
 
 // Dictionary for the tasks with their answers
 const tasks = {
@@ -15,91 +13,76 @@ const tasks = {
     7: { question: "What is the currency of Japan?", answer: "Yen" },
     8: { question: "What is the hardest natural substance?", answer: "Diamond" },
     9: { question: "What is the longest river in the world?", answer: "Nile" },
-    10: { question: "Who discovered penicillin?", answer: "Fleming" },
+    10: { question: "Who discovered penicillin?", answer: "Fleming" }
 };
 
 // Function to start the game
-document.getElementById("start-button").addEventListener("click", () => {
-    nickname = prompt("Please enter your nickname:");
-    if (nickname) {
-        currentTask = 1;
-        completedTasks = [];
-        showTaskPage();
-    }
-});
+function startGame() {
+    currentTask = 1; // Start from task 1
+    completedTasks = []; // Reset completed tasks
+    showTaskPage(); // Show the task page directly
+}
 
 // Function to show the task page
 function showTaskPage() {
     document.getElementById("home-page").classList.add("hidden");
     document.getElementById("task-page").classList.remove("hidden");
-    document.getElementById("nickname-display").textContent = nickname;
-    displayTaskButtons();
-}
 
-// Function to display the task buttons
-function displayTaskButtons() {
-    const taskButtonsDiv = document.getElementById("task-buttons");
-    taskButtonsDiv.innerHTML = ""; // Clear any previous buttons
+    const taskButtonsContainer = document.getElementById("task-buttons");
+    taskButtonsContainer.innerHTML = ''; // Clear any previous task buttons
+
+    // Create task buttons (task 1 to task 10)
     for (let i = 1; i <= 10; i++) {
-        const button = document.createElement("button");
-        button.textContent = `Task ${i}`;
-        button.addEventListener("click", () => showTaskDetail(i));
+        const taskButton = document.createElement("button");
+        taskButton.textContent = `Task ${i}`;
+        taskButton.addEventListener("click", () => showTaskDetail(i));
         if (completedTasks.includes(i)) {
-            button.style.backgroundColor = 'green';
+            taskButton.style.backgroundColor = "green"; // Mark completed tasks
         }
-        taskButtonsDiv.appendChild(button);
+        taskButtonsContainer.appendChild(taskButton);
     }
+
+    // Handle home button to go back to the home page
+    document.getElementById("home-button").addEventListener("click", showHomePage);
 }
 
 // Function to show task details
 function showTaskDetail(taskNumber) {
+    const task = tasks[taskNumber];
     document.getElementById("task-page").classList.add("hidden");
     document.getElementById("task-detail-page").classList.remove("hidden");
 
-    const task = tasks[taskNumber];
+    // Display the task question
     document.getElementById("task-question").textContent = task.question;
 
-    document.getElementById("submit-answer-button").onclick = () => checkAnswer(taskNumber, task.answer);
-    document.getElementById("task-back-button").onclick = showTaskPage;
+    // Handle answer submission
+    const submitButton = document.getElementById("submit-answer-button");
+    submitButton.onclick = function() {
+        checkAnswer(taskNumber, task.answer);
+    };
+
+    // Handle going back to the task list
+    document.getElementById("task-back-button").addEventListener("click", showTaskPage);
 }
 
 // Function to check the answer
 function checkAnswer(taskNumber, correctAnswer) {
     const userAnswer = document.getElementById("answer-input").value.trim();
     if (userAnswer === correctAnswer) {
-        alert("Correct! Task completed.");
+        alert("Correct! Well done.");
         completedTasks.push(taskNumber);
-        document.getElementById("task-detail-page").classList.add("hidden");
-        showTaskPage();
-        if (completedTasks.length === 10) {
-            alert("Congratulations! All tasks completed.");
-            showLeaderboard();
-        }
+        currentTask = taskNumber + 1; // Update the current task number
+        showTaskPage(); // Go back to the task list with updated task buttons
     } else {
-        alert("Incorrect answer. Try again.");
+        alert("Incorrect. Try again.");
     }
 }
 
-// Function to show the leaderboard
-document.getElementById("leaderboard-button").addEventListener("click", showLeaderboard);
-document.getElementById("back-to-home-button").addEventListener("click", showHomePage);
-
-function showLeaderboard() {
-    document.getElementById("task-page").classList.add("hidden");
-    document.getElementById("leaderboard-page").classList.remove("hidden");
-
-    const leaderboardDiv = document.getElementById("leaderboard");
-    leaderboardDiv.innerHTML = ""; // Clear previous leaderboard
-
-    leaderboardData.forEach(entry => {
-        const entryElement = document.createElement("div");
-        entryElement.textContent = `${entry.nickname} - ${entry.time}`;
-        leaderboardDiv.appendChild(entryElement);
-    });
-}
-
-// Function to go back to home
+// Function to show the home page
 function showHomePage() {
-    document.getElementById("leaderboard-page").classList.add("hidden");
+    document.getElementById("task-page").classList.add("hidden");
     document.getElementById("home-page").classList.remove("hidden");
 }
+
+// Event listener for the Start button
+document.getElementById("start-button").addEventListener("click", startGame);
