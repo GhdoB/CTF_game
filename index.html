@@ -3,47 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capture the Flag Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>CTF Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Home Page -->
-    <div id="home-page" class="page active">
-        <h1>Capture the Flag Game</h1>
-        <button id="start-button">Start</button>
+    <!-- Home Screen -->
+    <div id="homeScreen" class="screen">
+        <h1>Capture The Flag Game</h1>
+        <button id="startButton" class="button">Start</button>
+        <button id="leaderboardButton" class="button">Leaderboard</button>
     </div>
 
     <!-- Task Page -->
-    <div id="task-page" class="page hidden">
-        <h2>Tasks</h2>
-        <div id="task-buttons"></div>
-        <button id="home-button">Home</button>
+    <div id="taskPage" class="screen">
+        <h1>Tasks</h1>
+        <div id="taskList"></div>
+        <button id="homeButton" class="button">Home</button>
+        <button id="continueButton" class="button">Continue</button>
     </div>
 
-    <!-- Task Detail Page -->
-    <div id="task-detail-page" class="page hidden">
-        <h2 id="task-question"></h2>
-        <input type="text" id="answer-input" placeholder="Enter your answer">
-        <button id="submit-answer-button">Submit Answer</button>
-        <button id="task-back-button">Back to Tasks</button>
-    </div>
-
-    <!-- Congratulations Page -->
-    <div id="congratulations-page" class="page hidden">
-        <h2>Congratulations!</h2>
-        <p>You completed all the tasks.</p>
-        <label for="nickname-input">Enter your nickname:</label>
-        <input type="text" id="nickname-input" placeholder="Your Nickname">
-        <button id="submit-nickname">Submit</button>
-        <button id="leaderboard-button">Leaderboard</button>
-    </div>
-
-    <!-- Leaderboard Page -->
-    <div id="leaderboard-page" class="page hidden">
-        <h2>Leaderboard</h2>
-        <div id="leaderboard"></div>
-        <button id="back-to-home-button">Back to Home</button>
+    <!-- Task Detail Popup -->
+    <div id="taskDetailPopup" class="popup">
+        <h2>Task 1: Download the PNG</h2>
+        <button id="downloadButton">Download PNG</button>
+        <input id="flagInput" type="text" placeholder="Enter flag here">
+        <button id="submitFlagButton">Submit Flag</button>
+        <p id="taskStatus"></p>
     </div>
 
     <script src="script.js"></script>
