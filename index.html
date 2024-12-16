@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture the Flag Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page">
+        <h1>Capture the Flag Game</h1>
+        <button id="start-button">Start</button>
+        <button id="leaderboard-button">Leaderboard</button>
+    </div>
+
+    <!-- Task Page -->
+    <div id="task-page" class="page hidden">
+        <h2>Welcome, <span id="nickname-display"></span>!</h2>
+        <div id="task-buttons"></div>
+        <button id="home-button">Home</button>
+    </div>
+
+    <!-- Task Detail Page -->
+    <div id="task-detail-page" class="page hidden">
+        <h2 id="task-question"></h2>
+        <input type="text" id="answer-input" placeholder="Enter your answer">
+        <button id="submit-answer-button">Submit Answer</button>
+        <button id="task-back-button">Back to Tasks</button>
+    </div>
+
+    <!-- Leaderboard Page -->
+    <div id="leaderboard-page" class="page hidden">
+        <h2>Leaderboard</h2>
+        <div id="leaderboard"></div>
+        <button id="back-to-home-button">Back to Home</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
