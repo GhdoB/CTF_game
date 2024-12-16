@@ -1,43 +1,67 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: blue;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     text-align: center;
 }
 
-.page {
+h1 {
+    margin-bottom: 30px;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.screen {
     display: none;
 }
 
-.page.active {
+#homeScreen {
     display: block;
 }
 
-h1, h2 {
-    text-align: center;
+#taskPage {
+    display: none;
 }
 
-button {
-    display: block;
-    width: 200px;
+.popup {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+input[type="text"] {
     padding: 10px;
-    margin: 10px auto;
-    font-size: 16px;
-    cursor: pointer;
+    margin-top: 10px;
 }
 
-button:hover {
-    background-color: #ddd;
-}
-
-#task-buttons button {
-    width: 200px;
-    margin: 10px auto;
-}
-
-input {
-    display: block;
-    width: 80%;
-    margin: 10px auto;
-    padding: 10px;
+button:disabled {
+    background-color: gray;
 }
