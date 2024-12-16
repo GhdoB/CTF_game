@@ -1,6 +1,7 @@
 // Global variables
 let currentTask = 0; // Keeps track of the last completed task
 let completedTasks = []; // List of completed task numbers
+let leaderboard = []; // List of leaderboard entries
 
 // Dictionary for the tasks with their answers
 const tasks = {
@@ -71,8 +72,11 @@ function checkAnswer(taskNumber, correctAnswer) {
     if (userAnswer === correctAnswer) {
         alert("Correct! Well done.");
         completedTasks.push(taskNumber);
-        currentTask = taskNumber + 1; // Update the current task number
-        showTaskPage(); // Go back to the task list with updated task buttons
+        if (completedTasks.length === 10) {
+            showCongratulationsPage();
+        } else {
+            showTaskPage(); // Go back to the task list with updated task buttons
+        }
     } else {
         alert("Incorrect. Try again.");
     }
@@ -82,6 +86,45 @@ function checkAnswer(taskNumber, correctAnswer) {
 function showHomePage() {
     document.getElementById("task-page").classList.add("hidden");
     document.getElementById("home-page").classList.remove("hidden");
+}
+
+// Function to show the congratulations page
+function showCongratulationsPage() {
+    document.getElementById("task-detail-page").classList.add("hidden");
+    document.getElementById("congratulations-page").classList.remove("hidden");
+
+    // Handle nickname submission
+    const nicknameButton = document.getElementById("submit-nickname");
+    nicknameButton.onclick = function() {
+        const nickname = document.getElementById("nickname-input").value.trim();
+        if (nickname) {
+            leaderboard.push({ nickname: nickname });
+            showLeaderboardPage(); // Go to leaderboard after submitting nickname
+        } else {
+            alert("Please enter a valid nickname.");
+        }
+    };
+
+    // Handle leaderboard button
+    document.getElementById("leaderboard-button").addEventListener("click", showLeaderboardPage);
+}
+
+// Function to show the leaderboard page
+function showLeaderboardPage() {
+    document.getElementById("congratulations-page").classList.add("hidden");
+    document.getElementById("leaderboard-page").classList.remove("hidden");
+
+    const leaderboardContainer = document.getElementById("leaderboard");
+    leaderboardContainer.innerHTML = ''; // Clear previous leaderboard
+
+    leaderboard.forEach(entry => {
+        const leaderboardEntry = document.createElement("div");
+        leaderboardEntry.textContent = entry.nickname;
+        leaderboardContainer.appendChild(leaderboardEntry);
+    });
+
+    // Handle back to home button
+    document.getElementById("back-to-home-button").addEventListener("click", showHomePage);
 }
 
 // Event listener for the Start button
