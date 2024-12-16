@@ -1,131 +1,93 @@
-// Global variables
-let currentTask = 0; // Keeps track of the last completed task
-let completedTasks = []; // List of completed task numbers
-let leaderboard = []; // List of leaderboard entries
+// Global variables for tracking game progress
+let currentTask = 1;
+const taskList = document.getElementById('taskList');
+const taskStatus = document.getElementById('taskStatus');
+let completedTasks = [];
 
-// Dictionary for the tasks with their answers
-const tasks = {
-    1: { question: "What is 2 + 2?", answer: "4" },
-    2: { question: "What is the capital of France?", answer: "Paris" },
-    3: { question: "What is the largest planet in our solar system?", answer: "Jupiter" },
-    4: { question: "Who wrote 'Romeo and Juliet'?", answer: "Shakespeare" },
-    5: { question: "What is the square root of 16?", answer: "4" },
-    6: { question: "Who painted the Mona Lisa?", answer: "Da Vinci" },
-    7: { question: "What is the currency of Japan?", answer: "Yen" },
-    8: { question: "What is the hardest natural substance?", answer: "Diamond" },
-    9: { question: "What is the longest river in the world?", answer: "Nile" },
-    10: { question: "Who discovered penicillin?", answer: "Fleming" }
-};
+// Home Screen
+const homeScreen = document.getElementById('homeScreen');
+const taskPage = document.getElementById('taskPage');
+const leaderboardButton = document.getElementById('leaderboardButton');
 
-// Function to start the game
-function startGame() {
-    currentTask = 1; // Start from task 1
-    completedTasks = []; // Reset completed tasks
-    showTaskPage(); // Show the task page directly
-}
+// Task Detail Popup
+const taskDetailPopup = document.getElementById('taskDetailPopup');
+const downloadButton = document.getElementById('downloadButton');
+const flagInput = document.getElementById('flagInput');
+const submitFlagButton = document.getElementById('submitFlagButton');
 
-// Function to show the task page
-function showTaskPage() {
-    document.getElementById("home-page").classList.add("hidden");
-    document.getElementById("task-page").classList.remove("hidden");
+// Leaderboard (Just a placeholder for now)
+leaderboardButton.addEventListener('click', () => {
+    alert('Leaderboard feature is coming soon!');
+});
 
-    const taskButtonsContainer = document.getElementById("task-buttons");
-    taskButtonsContainer.innerHTML = ''; // Clear any previous task buttons
+// Start Game
+document.getElementById('startButton').addEventListener('click', () => {
+    const nickname = prompt('Enter your nickname:');
+    if (nickname) {
+        homeScreen.style.display = 'none';
+        taskPage.style.display = 'block';
+        displayTasks();
+    }
+});
 
-    // Create task buttons (task 1 to task 10)
+// Continue Button
+document.getElementById('continueButton').addEventListener('click', () => {
+    taskPage.style.display = 'block';
+    displayTasks();
+});
+
+// Show Tasks List
+function displayTasks() {
+    taskList.innerHTML = '';
     for (let i = 1; i <= 10; i++) {
-        const taskButton = document.createElement("button");
+        const taskButton = document.createElement('button');
         taskButton.textContent = `Task ${i}`;
-        taskButton.addEventListener("click", () => showTaskDetail(i));
+        taskButton.classList.add('button');
+        taskButton.addEventListener('click', () => showTaskDetail(i));
         if (completedTasks.includes(i)) {
-            taskButton.style.backgroundColor = "green"; // Mark completed tasks
+            taskButton.style.backgroundColor = 'green';
         }
-        taskButtonsContainer.appendChild(taskButton);
+        taskList.appendChild(taskButton);
     }
-
-    // Handle home button to go back to the home page
-    document.getElementById("home-button").addEventListener("click", showHomePage);
 }
 
-// Function to show task details
+// Show Task Detail Popup for Task 1
 function showTaskDetail(taskNumber) {
-    const task = tasks[taskNumber];
-    document.getElementById("task-page").classList.add("hidden");
-    document.getElementById("task-detail-page").classList.remove("hidden");
-
-    // Display the task question
-    document.getElementById("task-question").textContent = task.question;
-
-    // Handle answer submission
-    const submitButton = document.getElementById("submit-answer-button");
-    submitButton.onclick = function() {
-        checkAnswer(taskNumber, task.answer);
-    };
-
-    // Handle going back to the task list
-    document.getElementById("task-back-button").addEventListener("click", showTaskPage);
-}
-
-// Function to check the answer
-function checkAnswer(taskNumber, correctAnswer) {
-    const userAnswer = document.getElementById("answer-input").value.trim();
-    if (userAnswer === correctAnswer) {
-        alert("Correct! Well done.");
-        completedTasks.push(taskNumber);
-        if (completedTasks.length === 10) {
-            showCongratulationsPage();
-        } else {
-            showTaskPage(); // Go back to the task list with updated task buttons
-        }
+    if (taskNumber === 1 && !completedTasks.includes(1)) {
+        taskDetailPopup.style.display = 'block';
     } else {
-        alert("Incorrect. Try again.");
+        alert('Task already completed or not available yet!');
     }
 }
 
-// Function to show the home page
-function showHomePage() {
-    document.getElementById("task-page").classList.add("hidden");
-    document.getElementById("home-page").classList.remove("hidden");
-}
+// Download PNG (Task 1)
+downloadButton.addEventListener('click', () => {
+    alert('Image has been downloaded successfully!');
+    taskStatus.textContent = 'Download Complete! Now, enter the correct flag to complete this task.';
+});
 
-// Function to show the congratulations page
-function showCongratulationsPage() {
-    document.getElementById("task-detail-page").classList.add("hidden");
-    document.getElementById("congratulations-page").classList.remove("hidden");
+// Flag Submission (Task 1)
+submitFlagButton.addEventListener('click', () => {
+    const enteredFlag = flagInput.value.trim();
+    const correctFlag = 'correct_flag'; // Set the correct flag here
 
-    // Handle nickname submission
-    const nicknameButton = document.getElementById("submit-nickname");
-    nicknameButton.onclick = function() {
-        const nickname = document.getElementById("nickname-input").value.trim();
-        if (nickname) {
-            leaderboard.push({ nickname: nickname });
-            showLeaderboardPage(); // Go to leaderboard after submitting nickname
-        } else {
-            alert("Please enter a valid nickname.");
-        }
-    };
+    if (enteredFlag === correctFlag) {
+        completedTasks.push(1);
+        alert('Correct flag! Task 1 complete.');
+        taskDetailPopup.style.display = 'none';
+        displayTasks();
+    } else {
+        alert('Incorrect flag. Try again.');
+    }
+});
 
-    // Handle leaderboard button
-    document.getElementById("leaderboard-button").addEventListener("click", showLeaderboardPage);
-}
-
-// Function to show the leaderboard page
-function showLeaderboardPage() {
-    document.getElementById("congratulations-page").classList.add("hidden");
-    document.getElementById("leaderboard-page").classList.remove("hidden");
-
-    const leaderboardContainer = document.getElementById("leaderboard");
-    leaderboardContainer.innerHTML = ''; // Clear previous leaderboard
-
-    leaderboard.forEach(entry => {
-        const leaderboardEntry = document.createElement("div");
-        leaderboardEntry.textContent = entry.nickname;
-        leaderboardContainer.appendChild(leaderboardEntry);
-    });
-
-    // Handle back to home button
-    document.getElementById("back-to-home-button").addEventListener("click", showHomePage);
-}
-
-// Event listener for the Start button
-document.getElementById("start-button").addEventListener("click", startGame);
+// Home Button
+document.getElementById('homeButton').addEventListener('click', () => {
+    taskPage.style.display = 'none';
+    homeScreen.style.display = 'block';
+    if (completedTasks.length > 0) {
+        document.getElementById('continueButton').style.display = 'block';
+    } else {
+        document.getElementById('continueButton').style.display = 'none';
+    }
+});
