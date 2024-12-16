@@ -10,26 +10,27 @@
 
     <!-- Home Screen -->
     <div id="homeScreen" class="screen">
-        <h1>Capture The Flag Game</h1>
-        <button id="startButton" class="button">Start</button>
-        <button id="leaderboardButton" class="button">Leaderboard</button>
+        <h1>CTF Game</h1>
+        <div id="taskList"></div>
     </div>
 
     <!-- Task Page -->
     <div id="taskPage" class="screen">
-        <h1>Tasks</h1>
-        <div id="taskList"></div>
-        <button id="homeButton" class="button">Home</button>
-        <button id="continueButton" class="button">Continue</button>
+        <h1>Task</h1>
+        <p id="taskText"></p>
+        <input id="answerInput" type="text" placeholder="Enter flag here">
+        <button id="submitAnswerButton" class="button">Submit Answer</button>
+        <p id="feedback"></p>
     </div>
 
-    <!-- Task Detail Popup -->
-    <div id="taskDetailPopup" class="popup">
-        <h2>Task 1: Download the PNG</h2>
-        <button id="downloadButton">Download PNG</button>
-        <input id="flagInput" type="text" placeholder="Enter flag here">
-        <button id="submitFlagButton">Submit Flag</button>
-        <p id="taskStatus"></p>
+    <!-- Celebration Page -->
+    <div id="celebrationPage" class="screen">
+        <h1>Congratulations! You've completed all tasks!</h1>
+        <p>Enter your nickname:</p>
+        <input id="nicknameInput" type="text" placeholder="Nickname">
+        <button id="submitNicknameButton" class="button">Submit Nickname</button>
+        <h3>Leaderboard:</h3>
+        <ul id="leaderboardList"></ul>
     </div>
 
     <script src="script.js"></script>
